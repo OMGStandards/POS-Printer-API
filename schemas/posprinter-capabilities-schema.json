@@ -1,0 +1,384 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "definitions" : {
+    "CartridgeSensorCollectionDataContract" :
+    {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "enum": [
+          "Cleaning",
+          "Empty",
+          "NearEnd",
+          "Removed"
+        ],
+        "uniqueItems": true
+      }
+    },
+    "PrinterColorCapabilityEnumDataContract" :
+    {
+      "type": "string",
+      "enum" :[
+        "Mono",
+        "TwoColors",
+        "CustomColors",
+        "FullColor",
+        "FullWithCustomColors"
+      ]
+    },
+    "PrinterMarkFeedCollectionDataContract" :
+    {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "enum": [
+          "Cutter",
+          "CurrentTopOfForm",
+          "NextTopOfForm",
+          "Takeup"
+        ],
+        "uniqueItems": true
+      }
+    },
+    "RotationCollectionDataContract" :
+    {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "enum": [
+          "Normal",
+          "Left90",
+          "Right90",
+          "Rotate180"
+        ],
+        "uniqueItems": true
+      }
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "CompareFirmwareVersion": {
+      "type": "boolean"
+    },
+    "PowerReporting": {
+      "type": "string",
+      "enum": [
+        "None",
+        "Standard",
+        "Advanced"
+      ]
+    },
+    "StatisticsReporting": {
+      "type": "boolean"
+    },
+    "UpdateFirmware": {
+      "type": "boolean"
+    },
+    "UpdateStatistics": {
+      "type": "boolean"
+    },
+    "CoverSensor": {
+      "type": "boolean"
+    },
+    "MapCharacterSet": {
+      "type": "boolean"
+    },
+    "DefaultCharacterSetCapability": {
+      "type": "string",
+      "enum": [
+        "Numeric",
+        "Alpha",
+        "Ascii",
+        "Kana",
+        "Kanji",
+        "Unicode"
+      ]
+    },
+    "CharacterSetList": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "FontTypefaceList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ReceiptStationPresent": {
+      "type": "boolean"
+    },
+    "JournalStationPresent": {
+      "type": "boolean"
+    },
+    "SlipStationPresent": {
+      "type": "boolean"
+    },
+    "ReceiptStationCapabilities": {
+      "type": "object",
+      "properties": {
+        "Bold": {
+          "type": "boolean"
+        },
+        "Italic": {
+          "type": "boolean"
+        },
+        "Underline": {
+          "type": "boolean"
+        },
+        "DoubleHigh": {
+          "type": "boolean"
+        },
+        "DoubleWide": {
+          "type": "boolean"
+        },
+        "DoubleWideDoubleHigh": {
+          "type": "boolean"
+        },
+        "BarCode": {
+            "type": "boolean"
+        },
+        "Image": {
+          "type": "boolean"
+        },
+        "Color": {
+          "$ref": "#/definitions/PrinterColorCapabilityEnumDataContract"
+        },
+        "CustomColorList" : {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "EmptySensor": {
+          "type": "boolean"
+        },
+        "NearEndSensor": {
+          "type": "boolean"
+        },
+        "CartridgeSensorList": {
+          "$ref": "#/definitions/CartridgeSensorCollectionDataContract"
+        },
+        "MarkFeedList": {
+          "$ref": "#/definitions/PrinterMarkFeedCollectionDataContract"
+        },
+        "PaperCut": {
+          "type": "boolean"
+        },
+        "Stamp": {
+          "type": "boolean"
+        },
+        "SidewaysMaxChars": {
+          "type": "integer"
+        },
+        "SidewaysMaxLines": {
+          "type": "integer"
+        },
+        "TextRotationList": {
+          "$ref": "#/definitions/RotationCollectionDataContract"
+        },
+        "BarCodeRotationList": {
+          "$ref": "#/definitions/RotationCollectionDataContract"
+        },
+        "ImageRotationList": {
+          "$ref": "#/definitions/RotationCollectionDataContract"
+        },
+        "CharactersPerLineList": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "Bold",
+        "Italic",
+        "Underline",
+        "DoubleHigh",
+        "DoubleWide",
+        "DoubleWideDoubleHigh",
+        "BarCode",
+        "Image",
+        "EmptySensor",
+        "NearEndSensor",
+        "PaperCut",
+        "Stamp"
+      ]
+    },
+    "JournalStationCapabilities": {
+      "type": "object",
+      "properties": {
+        "Bold": {
+          "type": "boolean"
+        },
+        "Italic": {
+          "type": "boolean"
+        },
+        "Underline": {
+          "type": "boolean"
+        },
+        "DoubleHigh": {
+          "type": "boolean"
+        },
+        "DoubleWide": {
+          "type": "boolean"
+        },
+        "DoubleWideDoubleHigh": {
+          "type": "boolean"
+        },
+        "Color": {
+          "$ref": "#/definitions/PrinterColorCapabilityEnumDataContract"
+        },
+        "CustomColorList" : {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "EmptySensor": {
+          "type": "boolean"
+        },
+        "NearEndSensor": {
+          "type": "boolean"
+        },
+        "CartridgeSensorList": {
+          "$ref": "#/definitions/CartridgeSensorCollectionDataContract"
+        },
+        "CharactersPerLineList": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "Bold",
+        "Italic",
+        "Underline",
+        "DoubleHigh",
+        "DoubleWide",
+        "DoubleWideDoubleHigh",
+        "Color",
+        "EmptySensor",
+        "NearEndSensor"
+      ]
+    },
+    "SlipStationCapabilities":  {
+      "type": "object",
+      "properties": {
+        "Bold": {
+          "type": "boolean"
+        },
+        "Italic": {
+          "type": "boolean"
+        },
+        "Underline": {
+          "type": "boolean"
+        },
+        "DoubleHigh": {
+          "type": "boolean"
+        },
+        "DoubleWide": {
+          "type": "boolean"
+        },
+        "DoubleWideDoubleHigh": {
+          "type": "boolean"
+        },
+        "BarCode": {
+          "type": "boolean"
+        },
+        "Image": {
+          "type": "boolean"
+        },
+        "Color": {
+          "$ref": "#/definitions/PrinterColorCapabilityEnumDataContract"
+        },
+        "CustomColorList" : {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "EmptySensor": {
+          "type": "boolean"
+        },
+        "NearEndSensor": {
+          "type": "boolean"
+        },
+        "CartridgeSensorList": {
+          "$ref": "#/definitions/CartridgeSensorCollectionDataContract"
+        },
+        "MarkFeedList": {
+          "$ref": "#/definitions/PrinterMarkFeedCollectionDataContract"
+        },
+        "PaperCut": {
+          "type": "boolean"
+        },
+        "Stamp": {
+          "type": "boolean"
+        },
+        "SidewaysMaxChars": {
+          "type": "integer"
+        },
+        "SidewaysMaxLines": {
+          "type": "integer"
+        },
+        "TextRotationList": {
+          "$ref": "#/definitions/RotationCollectionDataContract"
+        },
+        "BarCodeRotationList": {
+          "$ref": "#/definitions/RotationCollectionDataContract"
+        },
+        "ImageRotationList": {
+          "$ref": "#/definitions/RotationCollectionDataContract"
+        },
+        "CharactersPerLineList": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+	  (!!! Denis: Why is BothSidePrint does not belong to "properties" of "SlipStationCapabilities" from above?)
+      "BothSidesPrint": {
+        "type": "boolean"
+      },
+	  (!!! Denis: Why is FullSlip does not belong to "properties" of "SlipStationCapabilities" from above?)
+      "FullSlip": {
+        "type": "boolean"
+      },
+      "required": [
+        "Bold",
+        "Italic",
+        "Underline",
+        "DoubleHigh",
+        "DoubleWide",
+        "DoubleWideDoubleHigh",
+        "BarCode",
+        "Image",
+        "Color",
+        "EmptySensor",
+        "NearEndSensor",
+        "PaperCut",
+        "Stamp",
+        "BothSidesPrint",
+        "FullSlip"
+      ]
+    }
+  },
+  "required": [
+    "CompareFirmwareVersion",
+    "PowerReporting",
+    "StatisticsReporting",
+    "UpdateFirmware",
+    "UpdateStatistics",
+    "CoverSensor",
+    "MapCharacterSet",
+    "ReceiptStationPresent",
+    "JournalStationPresent",
+    "SlipStationPresent"
+  ]
+}

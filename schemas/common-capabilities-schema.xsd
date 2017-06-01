@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  xmlns:tns="http://www.omg.org/retail/upos/" elementFormDefault="qualified"
+            targetNamespace="http://www.omg.org/retail/upos/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="CommonCapabilitiesDataContract">
+    <xs:sequence>
+      <xs:element name="CompareFirmwareVersion" type="xs:boolean" />
+      <xs:element name="PowerReporting" type="tns:PowerReportingEnumDataContract" />
+      <xs:element name="StatisticsReporting" type="xs:boolean" />
+      <xs:element name="UpdateFirmware" type="xs:boolean" />
+      <xs:element name="UpdateStatistics" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="PowerReportingEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Standard" />
+      <xs:enumeration value="Advanced" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

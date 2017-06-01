@@ -1,0 +1,24 @@
+#%RAML 1.0 SecurityScheme
+description: |
+    OAuth2 is a protocol that lets UnifiedPOS API clients request authorization
+    to access certain capabilities of the API. Access tokens can be limited to
+    specific resources, and can be revoked at any time.
+type: OAuth 2.0
+describedBy:
+  headers:
+    Authorization:
+      description: |
+        Used to send a valid OAuth 2 access token. Do not use together with
+        the "access_token" query string parameter.
+  responses:
+    401:
+      description: |
+        Bad or expired token. This can happen access token was revoked or
+        expired. To fix, client has to obtain a new access token.
+    404:
+      description: Unauthorized
+settings:
+  authorizationUri: https://example.com/login/oauth/authorize
+  accessTokenUri: https://example.com/login/oauth/token
+  authorizationGrants: [authorization_code, client_credentials]
+  scopes: [print, exclusive_access]

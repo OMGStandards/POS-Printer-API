@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  xmlns:tns="http://www.omg.org/retail/upos/" elementFormDefault="qualified"
+          targetNamespace="http://www.omg.org/retail/upos/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:include schemaLocation="common-capabilities-schema.xsd"/>
+
+  <!--Root-->
+  <xs:element name="PosPrinterCapabilities" nillable="true" type="tns:PosPrinterCapabilitiesDataContract" />
+  <xs:complexType name="PosPrinterCapabilitiesDataContract">
+    <xs:sequence>
+      <xs:element name="CommonCapabilities" type="tns:CommonCapabilitiesDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Aggregates capabilities common for all devices.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CoverSensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the printer has a "cover open" sensor.
+            Unified POS 1 name: property CapCoverSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MapCharacterSet" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            Defines the ability of the Service to map the characters of the application to the selected character set when printing data.
+            If MapCharacterSet is true, then the Service is able to map the characters to the character sets defined in CharacterSetList.
+            Unified POS 1 name: property CapMapCharacterSet.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DefaultCharacterSetCapability" nillable="true" type="tns:CharacterSetCapabilityEnumDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the default character set capability of the POS printer device.
+            Unified POS 1 name: property CapCharacterSet.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CharacterSetList" nillable="true" type="tns:CharacterSetCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the character set numbers.
+            Unified POS 1 name: property CharacterSetList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceiptStationPresent" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station is present.
+            Unified POS 1 name: property CapRecPresent.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="JournalStationPresent" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station is present.
+            Unified POS 1 name: property CapJrnPresent.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SlipStationPresent" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station is present.
+            Unified POS 1 name: property CapSlpPresent.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ReceiptStationCapabilities" nillable="true" type="tns:ReceiptStationCapabilitiesDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Aggregates all receipt print station specific capabilities.
+            This aggregation element was not available in Unified POS 1. It aggregates at least all capabilities from UnifiedPOS 1 starting with prefix "CapRec".
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="JournalStationCapabilities" nillable="true" type="tns:JournalStationCapabilitiesDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Aggregates all journal print station specific capabilities.
+            This aggregation element was not available in Unified POS 1. It aggregates at least all capabilities from UnifiedPOS 1 starting with prefix "CapJrn".
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="SlipStationCapabilities" nillable="true" type="tns:SlipStationCapabilitiesDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Aggregates all slip print station specific capabilities.
+            This aggregation element was not available in Unified POS 1. It aggregates at least all capabilities from UnifiedPOS 1 starting with prefix "CapSlp".
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="CharacterSetCapabilityEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Numeric">
+        <xs:annotation>
+          <xs:documentation>
+            Character set supports numeric data, plus space, minus, and period.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Alpha">
+        <xs:annotation>
+          <xs:documentation>
+            Character set supports uppercase alphabetic plus numeric, space, minus, and period.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Ascii">
+        <xs:annotation>
+          <xs:documentation>
+            Character set supports all ASCII characters 0x20 through 0x7F.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Kana">
+        <xs:annotation>
+          <xs:documentation>
+            Character set supports partial code page 932, including ASCII characters 0x20 through 0x7F
+            and the Japanese Kana characters 0xA1 through 0xDF, but excluding the Japanese Kanji characters.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Kanji">
+        <xs:annotation>
+          <xs:documentation>
+            Character set supports code page 932, including the Shift-JIS Kanji characters, Levels 1 and 2.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unicode">
+        <xs:annotation>
+          <xs:documentation>
+            Character set supports Unicode.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CharacterSetCollectionDataContract">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="CharacterSet" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FontTypefaceCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FontTypeface" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReceiptStationCapabilitiesDataContract">
+    <xs:sequence>
+      <xs:element name="Bold" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can print bold characters.
+            Unified POS 1 name: property CapRecBold.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Italic" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can print italic characters.
+            Unified POS 1 name: property CapRecItalic.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Underline" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can underline characters.
+            Unified POS 1 name: property CapRecUnderline.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="FontTypefaceList" nillable="true" type="tns:FontTypefaceCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the fonts and/or typefaces that are supported by the receipt station. The string consists of collection of font or typeface names.
+            In Japan, this property will frequently include the fonts "Mincho" and "Gothic".
+            Other fonts or typefaces may be commonly supported in other countries.
+            If this element is absent or contains an empty string then only the default typeface is supported.
+            Unified POS 1 name: property FontTypefaceList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleHigh" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can print double high characters.
+            Unified POS 1 name: property CapRecDhigh.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleWide" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can print double wide characters.
+            Unified POS 1 name: property CapRecDwide.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleWideDoubleHigh" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can print double high /double wide characters.
+            Unified POS 1 name: property CapRecDwideDhigh.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BarCode" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station has bar code printing capability.
+            Unified POS 1 name: property CapRecBarCode.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Image" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station can print images.
+            Unified POS 1 name: property CapRecBitmap.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Color" type="tns:ColorCapabilityEnumDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This capability indicates the availability of receipt color cartridges.
+            Unified POS 1 name: property CapRecColor. In Unified POS 1 the property subsumes values from Color and CustomColorList elements.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CustomColorList" nillable="true" type="tns:CustomColorCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This capability contains the list of device specific custom color cartridges for the receipt print station.
+            It is only provided if the property Color holds the values "CustomColors" or "FullWithCustomColors".
+            Unified POS 1 name: property CapRecColor. In Unified POS 1 the property subsumes values from Color and CustomColorList elements.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EmptySensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station has an out-of-paper sensor.
+            Unified POS 1 name: property CapRecEmptySensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NearEndSensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt print station has a low paper sensor.
+            Unified POS 1 name: property CapNearEndSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CartridgeSensorList" nillable="true" type="tns:CartridgeSensorCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This property is used to indicate the presence of cartridge monitoring sensors at the receipt print station.
+            Unified POS 1 name: property CapRecCartridgeSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="MarkFeedList"  nillable="true" type="tns:PrinterMarkFeedCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This parameter indicates the type of mark sensed paper handling available.
+            Unified POS 1 name: property CapRecMarkFeed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaperCut" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt can perform paper cuts.
+            Unified POS 1 name: property CapRecPapercut.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Stamp" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt has a stamp capability.
+            Unified POS 1 name: property CapRecStamp.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DefaultSidewaysMaxChars" nillable="true" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the maximum number of characters that may be printed on each line in sideways mode with default settings.
+            If TextRotationList does not contain "Left90" nor "Right90", then this property is zero.
+            Changing the properties LineHeight, LineSpacing, and LineChars of the receipt station impacts maximum number of characters that can be printed.
+            Unified POS 1 name: property RecSidewaysMaxChars.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DefaultSidewaysMaxLines" nillable="true" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the maximum number of lines that may be printed in sideways mode with default settings.
+            If TextRotationList does not contain "Left90" nor "Right90", then this property is zero.
+            Changing the properties LineHeight, LineSpacing, and LineChars of the receipt station impacts maximum number of lines that can be printed.
+            Unified POS 1 name: property RecSidewaysMaxLines.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="TextRotationList" nillable="true" type="tns:RotationCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the rotation capabilities of the receipt print station.
+            This aggregation element was not available in Unified POS 1. It aggregates the following capabilities from UnifiedPOS 1:
+            "CapRecLeft90", "CapRecRight90", "CapRecRotate180", and the implicit normal mode not modelled explicitly in UnifiedPOS 1.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="BarCodeRotationList" nillable="true" type="tns:RotationCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the directions in which a bar code may be rotated when printing on the receipt print station. An empty collection indicates that bar code rotaion is not supported at this station.
+            Unified POS 1 name: property RecBarCodeRotationList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ImageRotationList" nillable="true" type="tns:RotationCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the directions in which an image may be rotated when printing on the receipt print station. An empty collection indicates that image rotaion is not supported at this station.
+            Unified POS 1 name: property RecBitmapRotationList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CharactersPerLineList" nillable="true" type="tns:CharactersPerLineCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the line character widths supported by the receipt print station.
+            Unified POS 1 name: property RecLineCharsList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      (!!! Denis: FYI, lacking capabilities: CapRecPageMode, CapRecRuledLine, CapRec2Color-> modelled by Color?)
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="JournalStationCapabilitiesDataContract">
+    <xs:sequence>
+      <xs:element name="Bold" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station can print bold characters.
+            Unified POS 1 name: property CapJrnBold.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Italic" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station can print italic characters.
+            Unified POS 1 name: property CapJrnItalic.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Underline" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station can underline characters.
+            Unified POS 1 name: property CapJrnUnderline.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleHigh" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station can print double high characters.
+            Unified POS 1 name: property CapJrnDhigh.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleWide" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station can print double wide characters.
+            Unified POS 1 name: property CapJrnDwide.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleWideDoubleHigh" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station can print double high /double wide characters.
+            Unified POS 1 name: property CapJrnDwideDhigh.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Color" type="tns:ColorCapabilityEnumDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This capability indicates the availability of jounal color cartridges.
+            Unified POS 1 name: property CapJrnColor. In Unified POS 1 the property subsumes values from Color and CustomColorList elements.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CustomColorList" nillable="true" type="tns:CustomColorCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This capability contains the list of device specific custom color cartridges for the journal print station.
+            It is only provided if the property Color holds the values "CustomColors" or "FullWithCustomColors".
+            Unified POS 1 name: property CapJrnColor. In Unified POS 1 the property subsumes values from Color and CustomColorList elements.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EmptySensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the journal print station has an out-of-paper sensor.
+            Unified POS 1 name: property CapJrnEmptySensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NearEndSensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the jounal print station has a low paper sensor.
+            Unified POS 1 name: property CapNearEndSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CartridgeSensorList" nillable="true"  type="tns:CartridgeSensorCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This property is used to indicate the presence of cartridge monitoring sensors at the journal print station.
+            Unified POS 1 name: property CapJrnCartridgeSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CharactersPerLineList" nillable="true" type="tns:CharactersPerLineCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the line character widths supported by the journal print station.
+            Unified POS 1 name: property JrnLineCharsList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      (!!! Denis: FYI, lacking capabilities: CapRec2Color-> modelled by Color?)
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SlipStationCapabilitiesDataContract">
+    <xs:sequence>
+      <xs:element name="Bold" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can print bold characters.
+            Unified POS 1 name: property CapSlpBold.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Italic" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can print italic characters.
+            Unified POS 1 name: property CapSlpItalic.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Underline" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can underline characters.
+            Unified POS 1 name: property CapSlpUnderline.
+          </xs:documentation>
+        </xs:annotation>
+      <xs:element minOccurs="0" name="FontTypefaceList" nillable="true" type="tns:FontTypefaceCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the fonts and/or typefaces that are supported by the slip station. The string consists of collection of font or typeface names.
+            In Japan, this property will frequently include the fonts "Mincho" and "Gothic".
+            Other fonts or typefaces may be commonly supported in other countries.
+            If this element is absent or contains an empty string then only the default typeface is supported.
+            Unified POS 1 name: property FontTypefaceList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleHigh" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can print double high characters.
+            Unified POS 1 name: property CapSlpDhigh.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleWide" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can print double wide characters.
+            Unified POS 1 name: property CapSlpDwide.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DoubleWideDoubleHigh" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can print double high /double wide characters.
+            Unified POS 1 name: property CapSlpDwideDhigh.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BarCode" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station has bar code printing capability.
+            Unified POS 1 name: property CapSlpBarCode.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Image" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station can print images.
+            Unified POS 1 name: property CapSlpBitmap.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Color" type="tns:ColorCapabilityEnumDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This capability indicates the availability of slip color cartridges.
+            Unified POS 1 name: property CapSlpColor. In Unified POS 1 the property subsumes values from Color and CustomColorList elements.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CustomColorList" nillable="true" type="tns:CustomColorCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This capability contains the list of device specific custom color cartridges for the slip print station.
+            It is only provided if the property Color holds the values "CustomColors" or "FullWithCustomColors".
+            Unified POS 1 name: property CapSlpColor. In Unified POS 1 the property subsumes values from Color and CustomColorList elements.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EmptySensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station has an out-of-paper sensor.
+            Unified POS 1 name: property CapSlpEmptySensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NearEndSensor" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip print station has a low paper sensor.
+            Unified POS 1 name: property CapNearEndSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CartridgeSensorList" nillable="true" type="tns:CartridgeSensorCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This property is used to indicate the presence of cartridge monitoring sensors at the slip print station.
+            Unified POS 1 name: property CapSlpCartridgeSensor.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="MarkFeedList"  nillable="true" type="tns:PrinterMarkFeedCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            This parameter indicates the type of mark sensed paper handling available.
+            Unified POS 1 does not have this capabilitiy for slip station.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaperCut" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the receipt can perform paper cuts.
+            Unified POS 1 does not have this capabilitiy for slip station.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Stamp" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip has a stamp capability.
+            Unified POS 1 does not have this capabilitiy for slip station.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DefaultSidewaysMaxChars" nillable="true" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the maximum number of characters that may be printed on each line in sideways mode with default settings.
+            If TextRotationList does not contain "Left90" nor "Right90", then this property is zero.
+            Changing the properties LineHeight, LineSpacing, and LineChars of the slip station impacts maximum number of characters that can be printed.
+            Unified POS 1 name: property SlpSidewaysMaxChars.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="DefaultSidewaysMaxLines" nillable="true" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the maximum number of lines that may be printed in sideways mode with default settings.
+            If TextRotationList does not contain "Left90" nor "Right90", then this property is zero.
+            Changing the properties LineHeight, LineSpacing, and LineChars of the slip station impacts maximum number of lines that can be printed.
+            Unified POS 1 name: property SlpSidewaysMaxLines.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="TextRotationList" nillable="true" type="tns:RotationCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the rotation capabilities of the slip print station.
+            This aggregation element was not available in Unified POS 1. It aggregates the following capabilities from UnifiedPOS 1:
+            "CapRecLeft90", "CapRecRight90", "CapRecRotate180", and the implicit normal mode not modelled explicitly in UnifiedPOS 1.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="BarCodeRotationList" nillable="true" type="tns:RotationCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the directions in which a bar code may be rotated when printing on the slip print station. An empty collection indicates that bar code rotaion is not supported at this station.
+            Unified POS 1 name: property SlpBarCodeRotationList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ImageRotationList" nillable="true" type="tns:RotationCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the directions in which an image may be rotated when printing on the slip print station. An empty collection indicates that image rotation is not supported at this station.
+            Unified POS 1 name: property SlpBitmapRotationList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="CharactersPerLineList" nillable="true" type="tns:CharactersPerLineCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Holds the line character widths supported by the slip print station.
+            Unified POS 1 name: property SlpLineCharsList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BothSidesPrint" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip station can automatically print on both sides of a check, either by flipping the check or through the use of dual print heads.
+            Unified POS 1 name: property CapSlpBothSidesPrint.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FullSlip" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            If true, then the slip is a full slip station. It can print full-length forms.
+            If false, then the slip is a "validation" type station. This usually limits the number of print lines,
+            and disables access to the receipt and/or journal stations while the validation slip is being used.
+            Unified POS 1 name: property CapSlpFullslip.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      (!!! Denis: FYI, lacking capabilities: CapSlpPageMode, CapSlpRuledLine, CapSlp2Color-> modelled by Color?)
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CartridgeSensorCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CartridgeSensor" type="tns:CartridgeSensorEnumDataContract" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="CartridgeSensorEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Cleaning">
+        <xs:annotation>
+          <xs:documentation>
+            There is a function to indicate that the head is being cleaned.
+            Unified POS 1 name: value PTR_CART_CLEANING.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Empty">
+        <xs:annotation>
+          <xs:documentation>
+            There is a function to indicate that the Cartridge is empty.
+            Unified POS 1 name: value PTR_CART_EMPTY.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NearEnd">
+        <xs:annotation>
+          <xs:documentation>
+            There is a function to indicate that the color Cartridge is near end.
+            Unified POS 1 name: value PTR_CART_NEAREND.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Removed">
+        <xs:annotation>
+          <xs:documentation>
+            There is a function to indicate that the Cartridge has been removed.
+            Unified POS 1 name: value PTR_CART_REMOVED.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="PrinterMarkFeedCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MarkFeed" type="tns:PrinterMarkFeedEnumDataContract" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="PrinterMarkFeedEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Cutter">
+        <xs:annotation>
+          <xs:documentation>
+            Feed the Mark Sensed paper to the auto-cutter cutting position.
+            Unified POS 1 name: value PTR_MF_TO_CUTTER.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CurrentTopOfForm">
+        <xs:annotation>
+          <xs:documentation>
+            Feed the Mark Sensed paper to the present paper’s top of form. (Reverse feed if required)
+            Unified POS 1 name: value PTR_MF_TO_CURRENT_TOF.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NextTopOfForm">
+        <xs:annotation>
+          <xs:documentation>
+            Feed the Mark Sensed paper to the paper’s next top of form.
+            Unified POS 1 name: value PTR_MF_TO_NEXT_TOF.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Takeup">
+        <xs:annotation>
+          <xs:documentation>
+            Feed the Mark Sensed paper to the paper take-up position.
+            Unified POS 1 name: value PTR_MF_TO_TAKEUP.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ColorCapabilityEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Mono">
+        <xs:annotation>
+          <xs:documentation>
+            Suppors only one color.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TwoColor">
+        <xs:annotation>
+          <xs:documentation>
+            Suppors two colors: primary and secondary.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CustomColors">
+        <xs:annotation>
+          <xs:documentation>
+            Suppors custom colors specified by CustomColorList.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FullColor">
+        <xs:annotation>
+          <xs:documentation>
+            Suppors full color mode.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FullWithCustomColors">
+        <xs:annotation>
+          <xs:documentation>
+            Suppors full color mode and custom colors.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CustomColorCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomColor" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RotationCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Rotation" type="tns:RotationEnumDataContract" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="RotationEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Normal">
+        <xs:annotation>
+          <xs:documentation>
+            Object or text may be printed in the normal orientation.
+            Unified POS 1 name: value 0.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Left90">
+        <xs:annotation>
+          <xs:documentation>
+            Object or text may be rotated 90° to the left.
+            Unified POS 1 name: value L90.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Right90">
+        <xs:annotation>
+          <xs:documentation>
+            Object or text may be rotated 90° to the right.
+            Unified POS 1 name: value R90.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Rotate180">
+        <xs:annotation>
+          <xs:documentation>
+            Object or text may be rotated 180° - upside down.
+            Unified POS 1 name: value 180.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CharactersPerLineCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CharactersPerLine" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
