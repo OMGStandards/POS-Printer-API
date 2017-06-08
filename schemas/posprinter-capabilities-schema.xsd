@@ -44,7 +44,7 @@
         <xs:annotation>
           <xs:documentation>
             Holds the character set numbers.
-            Unified POS 1 name: property CharacterSetList.
+            Unified POS 1 name: CharacterSetList property.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -354,7 +354,15 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      (!!! Denis: FYI, lacking capabilities: CapRecPageMode, CapRecRuledLine, CapRec2Color-> modelled by Color?)
+      <xs:element name="RuledLine" type="tns:RuledLineDirectionCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates the printer has the ability to support the use of ruled lines in the receipt.
+            Returns the collection of line directions supported by the receipt print station.
+            Empty collection or missing element indicates that the ruled lines are not supported.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -457,7 +465,6 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      (!!! Denis: FYI, lacking capabilities: CapRec2Color-> modelled by Color?)
     </xs:sequence>
   </xs:complexType>
 
@@ -486,6 +493,7 @@
             Unified POS 1 name: property CapSlpUnderline.
           </xs:documentation>
         </xs:annotation>
+      </xs:element>
       <xs:element minOccurs="0" name="FontTypefaceList" nillable="true" type="tns:FontTypefaceCollectionDataContract">
         <xs:annotation>
           <xs:documentation>
@@ -578,30 +586,6 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="MarkFeedList"  nillable="true" type="tns:PrinterMarkFeedCollectionDataContract">
-        <xs:annotation>
-          <xs:documentation>
-            This parameter indicates the type of mark sensed paper handling available.
-            Unified POS 1 does not have this capabilitiy for slip station.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="PaperCut" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>
-            If true, then the receipt can perform paper cuts.
-            Unified POS 1 does not have this capabilitiy for slip station.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Stamp" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>
-            If true, then the slip has a stamp capability.
-            Unified POS 1 does not have this capabilitiy for slip station.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element minOccurs="0" name="DefaultSidewaysMaxChars" nillable="true" type="xs:int">
         <xs:annotation>
           <xs:documentation>
@@ -673,7 +657,15 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      (!!! Denis: FYI, lacking capabilities: CapSlpPageMode, CapSlpRuledLine, CapSlp2Color-> modelled by Color?)
+      <xs:element name="RuledLine" type="tns:RuledLineDirectionCollectionDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates the printer has the ability to support the use of ruled lines in the slip station.
+            Returns the collection of line directions supported by the slip print station.
+            Empty collection or missing element indicates that the ruled lines are not supported.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -685,8 +677,7 @@
 
   <xs:simpleType name="CartridgeSensorEnumDataContract">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="Cleaning">
-        <xs:annotation>
+      <xs:enumeration value="Cleaning">        <xs:annotation>
           <xs:documentation>
             There is a function to indicate that the head is being cleaned.
             Unified POS 1 name: value PTR_CART_CLEANING.
@@ -719,6 +710,34 @@
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
+
+  <xs:simpleType name="RuledLineDirectionEnumDataContract">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Horizontal">
+        <xs:annotation>
+          <xs:documentation>
+            The horizontal ruled line is supported.
+            Unified POS 1 name: value PTR_RL_HORIZONTAL.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Vertical">
+        <xs:annotation>
+          <xs:documentation>
+            The vertical ruled line is supported.
+            Unified POS 1 name: value PTR_RL_VERTICAL.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="RuledLineDirectionCollectionDataContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineDirection" type="tns:RuledLineDirectionEnumDataContract" />
+    </xs:sequence>
+  </xs:complexType>
+
 
   <xs:complexType name="PrinterMarkFeedCollectionDataContract">
     <xs:sequence>
