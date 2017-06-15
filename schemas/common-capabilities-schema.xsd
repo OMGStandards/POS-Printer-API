@@ -4,19 +4,67 @@
 
   <xs:complexType name="CommonCapabilitiesDataContract">
     <xs:sequence>
-      <xs:element name="CompareFirmwareVersion" type="xs:boolean" />
-      <xs:element name="PowerReporting" type="tns:PowerReportingEnumDataContract" />
-      <xs:element name="StatisticsReporting" type="xs:boolean" />
-      <xs:element name="UpdateFirmware" type="xs:boolean" />
-      <xs:element name="UpdateStatistics" type="xs:boolean" />
+      <xs:element name="CompareFirmwareVersion" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates whether a firmware file’s version can be compared against the firmware version of the device.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PowerReporting" type="tns:PowerReportingEnumDataContract">
+        <xs:annotation>
+          <xs:documentation>
+            Identifies the reporting capabilities of the Device. It has one of the following: None, Standard, Advanced.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StatisticsReporting" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates whether the device can accumulate and provide various statistics regarding its usage.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UpdateFirmware" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates whether a device supports firmware updating.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UpdateStatistics" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+            Indicates whether statistics regarding usage can be reset to zero or be updated.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
   <xs:simpleType name="PowerReportingEnumDataContract">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="None" />
-      <xs:enumeration value="Standard" />
-      <xs:enumeration value="Advanced" />
+      <xs:enumeration value="None">
+        <xs:annotation>
+          <xs:documentation>
+            No power reportint is possible.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Standard">
+        <xs:annotation>
+          <xs:documentation>
+            Two power states Online and Offline can be reported.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Advanced">
+        <xs:annotation>
+          <xs:documentation>
+            Three power states Online, Offline and Off can be reported.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

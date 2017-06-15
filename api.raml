@@ -5,3 +5,13 @@ baseUri: https://example.com/api/{version}
 securitySchemes:
   oauth_2_0: !include securitySchemes/oauth_2_0.raml
 schemas:
+  posprinter_capabilities_json: !include schemas/posprinter-capabilities-schema.json
+  posprinter_capabilities_xml: !include schemas/posprinter-capabilities-schema.xsd
+
+/posprinters:
+  get:
+    description: |
+      Get a list of PosPrinters exposed via API.
+    responses:
+      200:
+        body:

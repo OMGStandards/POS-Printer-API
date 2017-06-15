@@ -340,15 +340,13 @@
           "items": {
             "type": "integer"
           }
+        },
+        "BothSidesPrint": {
+          "type": "boolean"
+        },
+        "FullSlip": {
+          "type": "boolean"
         }
-      },
-	  (!!! Denis: Why is BothSidePrint does not belong to "properties" of "SlipStationCapabilities" from above?)
-      "BothSidesPrint": {
-        "type": "boolean"
-      },
-	  (!!! Denis: Why is FullSlip does not belong to "properties" of "SlipStationCapabilities" from above?)
-      "FullSlip": {
-        "type": "boolean"
       },
       "required": [
         "Bold",

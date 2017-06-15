@@ -830,20 +830,12 @@
 
   <xs:complexType name="RotationCollectionDataContract">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Rotation" type="tns:RotationEnumDataContract" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Rotation" type="tns:RotationCapabilityEnumDataContract" />
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="RotationEnumDataContract">
+  <xs:simpleType name="RotationCapabilityEnumDataContract">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="Normal">
-        <xs:annotation>
-          <xs:documentation>
-            Object or text may be printed in the normal orientation.
-            Unified POS 1 name: value 0.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="Left90">
         <xs:annotation>
           <xs:documentation>
@@ -865,6 +857,13 @@
           <xs:documentation>
             Object or text may be rotated 180° - upside down.
             Unified POS 1 name: value 180.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Angle">
+        <xs:annotation>
+          <xs:documentation>
+            Object or text may be printed rotated at certain angle.
           </xs:documentation>
         </xs:annotation>
       </xs:enumeration>
