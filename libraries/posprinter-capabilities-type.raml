@@ -50,9 +50,9 @@ types:
     type: string
     enum: ["Mono", "TwoColor", "CustomColors", "FullColor", "FullWithCustomColors"]
 
-  PrinterMarkFeedEnum:
+  MarkSensedPaperFeedEnum:
     description: |
-      Enumeration of mark feed capabilities.
+      Enumeration of mark sensed paper feed capabilities.
       Cutter - Feed the Mark Sensed paper to the auto-cutter cutting position.
         Unified POS 1 name: value PTR_MF_TO_CUTTER.
       CurrentTopOfForm - Feed the Mark Sensed paper to the present paper’s
@@ -66,25 +66,10 @@ types:
     type: string
     enum: ["Cutter", "CurrentTopOfForm", "NextTopOfForm", "Takeup"]
 
-  PrinterMarkFeedCollection:
+  MarkSensedPaperFeedCollection:
     description: |
       Defines an array of mark feed capabilities.
-    type: PrinterMarkFeedEnum[]
-
-  RuledLineDirectionEnum:
-    description: |
-      Enumeration of ruled line capabilities.
-      Horizontal - The horizontal ruled line is supported.
-        Unified POS 1 name: value PTR_RL_HORIZONTAL.
-      Vertical - The vertical ruled line is supported.
-        Unified POS 1 name: value PTR_RL_VERTICAL.
-    type: string
-    enum: ["Horizontal", "Vertical"]
-
-  RuledLineDirectionCollection:
-    description: |
-      Defines an array of ruled line capabilities.
-    type: RuledLineDirectionEnum[]
+    type: MarkSensedPaperFeedEnum[]
 
   CartridgeSensorEnum:
     description: |
@@ -133,25 +118,25 @@ types:
     description: |
       Capabilities of the receipt station.
     properties:
-      Bold:
+      bold:
         description: |
           Indicates if the receipt print station can print bold characters.
           Unified POS 1 name: property CapRecBold.
         type: boolean
         required: true
-      Italic:
+      italic:
         description: |
           Indicates if the receipt print station can print italic characters.
           Unified POS 1 name: property CapRecItalic.
         type: boolean
         required: true
-      Underline:
+      underline:
         description: |
           Indicates if the receipt print station can underline characters.
           Unified POS 1 name: property CapRecUnderline.
         type: boolean
         required: true
-      FontTypefaceList:
+      fontTypefaceList:
         description: |
           Fonts and/or typefaces that are supported by the receipt station.
           The string consists of collection of font or typeface names.
@@ -161,44 +146,44 @@ types:
           string then only the default typeface is supported.
           Unified POS 1 name: property FontTypefaceList.
         type: FontTypefaceCollection
-      DoubleHigh:
+      doubleHigh:
         description: |
           Indicates if the receipt station can print double high characters.
           Unified POS 1 name: property CapRecDhigh.
         type: boolean
         required: true
-      DoubleWide:
+      doubleWide:
         description: |
           Indicates if the receipt station can print double wide characters.
           Unified POS 1 name: property CapRecDwide.
         type: boolean
         required: true
-      DoubleWideDoubleHigh:
+      doubleWideDoubleHigh:
         description: |
           Indicates if the receipt station can print double high/wide characters.
           Unified POS 1 name: property CapRecDwideDhigh.
         type: boolean
         required: true
-      BarCode:
+      barCode:
         description: |
           Indicates if the receipt station has barcode printing capability.
           Unified POS 1 name: property CapRecBarCode.
         type: boolean
         required: true
-      Image:
+      image:
         description: |
           Indicates if the receipt print station can print images.
           Unified POS 1 name: property CapRecBitmap.
         type: boolean
         required: true
-      Color:
+      color:
         description: |
           Indicates the availability of receipt color cartridges.
           Unified POS 1 name: property CapRecColor. In Unified POS 1 the
           property contains values from Color and CustomColorList elements.
         type: ColorCapabilityEnum
         required: true
-      CustomColorList:
+      customColors:
         description: |
           Device specific custom color cartridges for the receipt station.
           It is only provided if the property Color holds the values
@@ -207,121 +192,325 @@ types:
           property contains values from Color and CustomColorList elements.
         type: CustomColorCollection
         required: false
-      EmptySensor:
+      emptySensor:
         description: |
           Indicates if the receipt station has an out-of-paper sensor.
           Unified POS 1 name: property CapRecEmptySensor.
         type: boolean
         required: true
-      NearEndSensor type: boolean
-
-          description:
-            If true, then the receipt print station has a low paper sensor.
-            Unified POS 1 name: property CapNearEndSensor.
-
-
-
-      CartridgeSensorList nillable=true type=tns:CartridgeSensorCollectionDataContract
-
-          description:
-            This property is used to indicate the presence of cartridge monitoring sensors at the receipt print station.
-            Unified POS 1 name: property CapRecCartridgeSensor.
-
-
-
-      MarkFeedList  nillable=true type=tns:PrinterMarkFeedCollectionDataContract
-
-          description:
-            This parameter indicates the type of mark sensed paper handling available.
-            Unified POS 1 name: property CapRecMarkFeed.
-
-
-
-      PaperCut type: boolean
-
-          description:
-            If true, then the receipt can perform paper cuts.
-            Unified POS 1 name: property CapRecPapercut.
-
-
-
-      Stamp type: boolean
-
-          description:
-            If true, then the receipt has a stamp capability.
-            Unified POS 1 name: property CapRecStamp.
-
-
-
-      DefaultSidewaysMaxChars nillable=true type: int
-
-          description:
-            Holds the maximum number of characters that may be printed on each line in sideways mode with default settings.
-            If TextRotationList does not contain Left90 nor Right90, then this property is zero.
-            Changing the properties LineHeight, LineSpacing, and LineChars of the receipt station impacts maximum number of characters that can be printed.
-            Unified POS 1 name: property RecSidewaysMaxChars.
-
-
-
-      DefaultSidewaysMaxLines nillable=true type: int
-
-          description:
-            Holds the maximum number of lines that may be printed in sideways mode with default settings.
-            If TextRotationList does not contain Left90 nor Right90, then this property is zero.
-            Changing the properties LineHeight, LineSpacing, and LineChars of the receipt station impacts maximum number of lines that can be printed.
-            Unified POS 1 name: property RecSidewaysMaxLines.
-
-
-
-      TextRotationList nillable=true type=tns:RotationCollectionDataContract
-
-          description:
-            Holds the rotation capabilities of the receipt print station.
-            This aggregation element was not available in Unified POS 1. It aggregates the following capabilities from UnifiedPOS 1:
-            CapRecLeft90, CapRecRight90, CapRecRotate180, and the implicit normal mode not modelled explicitly in UnifiedPOS 1.
-
-
-
-      BarCodeRotationList nillable=true type=tns:RotationCollectionDataContract
-
-          description:
-            Holds the directions in which a bar code may be rotated when printing on the receipt print station. An empty collection indicates that bar code rotaion is not supported at this station.
-            Unified POS 1 name: property RecBarCodeRotationList.
-
-
-
-      ImageRotationList nillable=true type=tns:RotationCollectionDataContract
-
-          description:
-            Holds the directions in which an image may be rotated when printing on the receipt print station. An empty collection indicates that image rotaion is not supported at this station.
-            Unified POS 1 name: property RecBitmapRotationList.
-
-
-
-      CharactersPerLineList nillable=true type=tns:CharactersPerLineCollectionDataContract
-
-          description:
-            Holds the line character widths supported by the receipt print station.
-            Unified POS 1 name: property RecLineCharsList.
-
-
-
-      RuledLine type=tns:RuledLineDirectionCollectionDataContract
-
-          description:
-            Indicates the printer has the ability to support the use of ruled lines in the receipt.
-            Returns the collection of line directions supported by the receipt print station.
-            Empty collection or missing element indicates that the ruled lines are not supported.
-
-
-
-
-
-
-
+      nearEndSensor:
+        description: |
+          Indicates if the receipt station has a low paper sensor.
+          Unified POS 1 name: property CapRecNearEndSensor.
+        type: boolean
+        required: true
+      cartridgeSensors:
+        description: |
+          Collection of cartridge monitoring sensors at the receipt station.
+          Unified POS 1 name: property CapRecCartridgeSensor.
+        type: CartridgeSensorCollection
+        required: false
+      markSensedPaperFeeds:
+        description: |
+          Collection of mark sernsed paper feeds supported by receipt station.
+          Unified POS 1 name: property CapRecMarkFeed.
+        types: MarkSensedPaperFeedCollection
+        required: false
+      paperCut:
+        description: |
+          Indicates if the receipt station can perform paper cuts.
+          Unified POS 1 name: property CapRecPapercut.
+        type: boolean
+        required: true
+      stamp:
+        description: |
+          Indicates if the receipt has a stamp capability.
+          Unified POS 1 name: property CapRecStamp.
+        type: boolean
+        required: true
+      textRotations:
+        description: |
+          Supported text rotations of the receipt print station.
+          This property was not available in Unified POS 1. It combines
+          the following capabilities from UnifiedPOS 1:
+          CapRecLeft90, CapRecRight90, CapRecRotate180.
+          An empty collection or absence of the property indicates that
+          text rotaion is not supported at this station.
+        type: RotationCollection
+        required: false
+      barCodeRotations:
+        description: |
+          Supported barcode rotations of the receipt print station.
+          An empty collection or absence of the property indicates that
+          bar code rotaion is not supported at this station.
+          Unified POS 1 name: property RecBarCodeRotationList.
+        type: RotationCollection
+        required: false
+      imageRotations:
+        description: |
+          Supported image rotations of the receipt print station.
+          An empty collection or absence of the property indicates that
+          bar code rotaion is not supported at this station.
+          Unified POS 1 name: property RecBitmapRotationList.
+        type: RotationCollection
+        required: false
+      charactersPerLineWidths:
+        description: |
+          Supported widths in terms of characters per line by the station.
+          Unified POS 1 name: property RecLineCharsList.
+        type: CharactersPerLineCollection
+        required: false
+      horizontalRuledLine:
+        description: |
+          Indicates if horizontal ruled line is supported by the station.
+          Unified POS 1 name: CapRecRuledLine value PTR_RL_HORIZONTAL
+        type: boolean
+        required: true
+      verticalRuledLine:
+        description: |
+          Indicates if vertical ruled line is supported by the station.
+          Unified POS 1 name:  CapRecRuledLine value PTR_RL_VERTICAL.
+        type: boolean
+        required: true
 
   JournalStationCapabilities:
+    description: |
+      Capabilities of the journal station.
+    properties:
+      bold:
+        description: |
+          Indicates if the journal print station can print bold characters.
+          Unified POS 1 name: property CapJrnBold.
+        type: boolean
+        required: true
+      italic:
+        description: |
+          Indicates if the journal print station can print italic characters.
+          Unified POS 1 name: property CapJrnItalic.
+        type: boolean
+        required: true
+      underline:
+        description: |
+          Indicates if the journal print station can underline characters.
+          Unified POS 1 name: property CapJrnUnderline.
+        type: boolean
+        required: true
+      doubleHigh:
+        description: |
+          Indicates if the journal station can print double high characters.
+          Unified POS 1 name: property CapJrnDhigh.
+        type: boolean
+        required: true
+      doubleWide:
+        description: |
+          Indicates if the journal station can print double wide characters.
+          Unified POS 1 name: property CapJrnDwide.
+        type: boolean
+        required: true
+      doubleWideDoubleHigh:
+        description: |
+          Indicates if the journal station can print double high/wide characters.
+          Unified POS 1 name: property CapJrnDwideDhigh.
+        type: boolean
+        required: true
+      color:
+        description: |
+          Indicates the availability of journal color cartridges.
+          Unified POS 1 name: property CapRecColor. In Unified POS 1 the
+          property contains values from Color and CustomColorList elements.
+        type: ColorCapabilityEnum
+        required: true
+      customColors:
+        description: |
+          Device specific custom color cartridges for the journal station.
+          It is only provided if the property Color holds the values
+          CustomColors or FullWithCustomColors.
+          Unified POS 1 name: property CapJrnColor. In Unified POS 1 the
+          property contains values from Color and CustomColorList elements.
+        type: CustomColorCollection
+        required: false
+      emptySensor:
+        description: |
+          Indicates if the journal station has an out-of-paper sensor.
+          Unified POS 1 name: property CapJrnEmptySensor.
+        type: boolean
+        required: true
+      nearEndSensor:
+        description: |
+          Indicates if the journal station has a low paper sensor.
+          Unified POS 1 name: property CapJrnNearEndSensor.
+        type: boolean
+        required: true
+      cartridgeSensors:
+        description: |
+          Collection of cartridge monitoring sensors at the journal station.
+          Unified POS 1 name: property CapJrnCartridgeSensor.
+        type: CartridgeSensorCollection
+        required: false
+      charactersPerLineWidths:
+        description: |
+          Supported widths in terms of characters per line by the station.
+          Unified POS 1 name: property JrnLineCharsList.
+        type: CharactersPerLineCollection
+        required: false
+
   SlipStationCapabilities:
+    description: |
+      Capabilities of the slip station.
+    properties:
+      bold:
+        description: |
+          Indicates if the slip print station can print bold characters.
+          Unified POS 1 name: property CapSlpBold.
+        type: boolean
+        required: true
+      italic:
+        description: |
+          Indicates if the slip print station can print italic characters.
+          Unified POS 1 name: property CapSlpItalic.
+        type: boolean
+        required: true
+      underline:
+        description: |
+          Indicates if the slip print station can underline characters.
+          Unified POS 1 name: property CapSlpUnderline.
+        type: boolean
+        required: true
+      fontTypefaceList:
+        description: |
+          Fonts and/or typefaces that are supported by the slip station.
+          The string consists of collection of font or typeface names.
+          In Japan, this property will frequently include the fonts Mincho
+          and Gothic. Other fonts or typefaces may be commonly supported in
+          other countries. If this element is absent or contains an empty
+          string then only the default typeface is supported.
+          Unified POS 1 name: property FontTypefaceList.
+        type: FontTypefaceCollection
+      doubleHigh:
+        description: |
+          Indicates if the slip station can print double high characters.
+          Unified POS 1 name: property CapSlpDhigh.
+        type: boolean
+        required: true
+      doubleWide:
+        description: |
+          Indicates if the slip station can print double wide characters.
+          Unified POS 1 name: property CapSlpDwide.
+        type: boolean
+        required: true
+      doubleWideDoubleHigh:
+        description: |
+          Indicates if the slip station can print double high/wide characters.
+          Unified POS 1 name: property CapSlpDwideDhigh.
+        type: boolean
+        required: true
+      barCode:
+        description: |
+          Indicates if the slip station has barcode printing capability.
+          Unified POS 1 name: property CapSlpBarCode.
+        type: boolean
+        required: true
+      image:
+        description: |
+          Indicates if the slip print station can print images.
+          Unified POS 1 name: property CapSlpBitmap.
+        type: boolean
+        required: true
+      color:
+        description: |
+          Indicates the availability of slip color cartridges.
+          Unified POS 1 name: property CapSlpColor. In Unified POS 1 the
+          property contains values from Color and CustomColorList elements.
+        type: ColorCapabilityEnum
+        required: true
+      customColors:
+        description: |
+          Device specific custom color cartridges for the slip station.
+          It is only provided if the property Color holds the values
+          CustomColors or FullWithCustomColors.
+          Unified POS 1 name: property CapSlpColor. In Unified POS 1 the
+          property contains values from Color and CustomColorList elements.
+        type: CustomColorCollection
+        required: false
+      emptySensor:
+        description: |
+          Indicates if the slip station has an out-of-paper sensor.
+          Unified POS 1 name: property CapSlpEmptySensor.
+        type: boolean
+        required: true
+      nearEndSensor:
+        description: |
+          Indicates if the slip station has a low paper sensor.
+          Unified POS 1 name: property CapSlpNearEndSensor.
+        type: boolean
+        required: true
+      cartridgeSensors:
+        description: |
+          Collection of cartridge monitoring sensors at the slip station.
+          Unified POS 1 name: property CapSlpCartridgeSensor.
+        type: CartridgeSensorCollection
+        required: false
+      textRotations:
+        description: |
+          Supported text rotations of the slip print station.
+          This property was not available in Unified POS 1. It combines
+          the following capabilities from UnifiedPOS 1:
+          CapSlpLeft90, CapSlpRight90, CapSlpRotate180.
+          An empty collection or absence of the property indicates that
+          text rotaion is not supported at this station.
+        type: RotationCollection
+        required: false
+      barCodeRotations:
+        description: |
+          Supported barcode rotations of the slip print station.
+          An empty collection or absence of the property indicates that
+          bar code rotaion is not supported at this station.
+          Unified POS 1 name: property SlpBarCodeRotationList.
+        type: RotationCollection
+        required: false
+      imageRotations:
+        description: |
+          Supported image rotations of the slip print station.
+          An empty collection or absence of the property indicates that
+          bar code rotaion is not supported at this station.
+          Unified POS 1 name: property SlpBitmapRotationList.
+        type: RotationCollection
+        required: false
+      charactersPerLineWidths:
+        description: |
+          Supported widths in terms of characters per line by the station.
+          Unified POS 1 name: property SlpLineCharsList.
+        type: CharactersPerLineCollection
+        required: false
+      bothSidesPrint:
+        description: |
+          Indicates if slip station can print on both sides of the form.
+          It can be done either by flipping the form or by using dual
+          print heads.
+          Unified POS 1 name: property CapSlpBothSidesPrint
+        type: boolean
+        required: true
+      fullSlip:
+        description: |
+          Indicates if slip station can print full length forms.
+          If false, then the slip is a "validation" type station. This usually
+          limits the number of print lines, and disables access to the receipt
+          and/or journal stations while the validation slip is being used.
+          Unified POS 1 name: property CapSlpFullslip.
+        type: boolean
+        required: true
+      horizontalRuledLine:
+        description: |
+          Indicates if horizontal ruled line is supported by the station.
+          Unified POS 1 name: CapSlpRuledLine value PTR_RL_HORIZONTAL
+        type: boolean
+        required: true
+      verticalRuledLine:
+        description: |
+          Indicates if vertical ruled line is supported by the station.
+          Unified POS 1 name:  CapSlpRuledLine value PTR_RL_VERTICAL.
+        type: boolean
+        required: true
 
   PosPrinterCapabilities:
     description: |
