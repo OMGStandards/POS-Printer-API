@@ -1,1 +1,1 @@
-# UnifiedPOS-API
+# POS Printer API
